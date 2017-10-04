@@ -1,0 +1,53 @@
+---
+- name: Create nexus user
+  user:
+    name: "{{nexus_user}}"
+    createhome: no
+- name: Ensure install dir exists
+  file:
+    path: "{{nexus_home}}"
+    state: directory
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+
+- name: Download and extract archive
+  unarchive:
+    src: "http://download.sonatype.com/nexus/3/nexus-{{nexus_version}}-unix.tar.gz"
+    dest: "{{nexus_home}}"
+    remote_src: yes
+    creates: "{{nexus_home}}/nexus-{{nexus_version}}"
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+
+- name: Copy service template
+  template:
+    src: nexus.service
+    dest: /usr/lib/systemd/system/systemd-nexus.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create symlink to service script
+  file:
+    src: /usr/lib/systemd/system/systemd-nexus.service
+    dest: /etc/systemd/system/multi-user.target.wants/nexus.service
+    owner: root
+    group: root
+    mode: 0755
+    state: link
+
+- name: Overwrite start script
+  template:
+    src: nexus
+    dest: "{{nexus_home}}/nexus-{{nexus_version}}/bin"
+    mode: 0755
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+
+- name: Reload systemctl daemon
+  command: systemctl daemon-reload
+
+- name: Start service
+  service:
+    name: nexus
+    state: restarted
