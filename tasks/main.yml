@@ -19,17 +19,6 @@
     owner: "{{nexus_user}}"
     group: "{{nexus_user}}"
 
-- name: Change install dir owner
-  file:
-    path: "{item}}"
-    owner: "{{nexus_user}}"
-    group: "{{nexus_user}}"
-    state: directory
-    recurse: yes
-  with_items:
-    - "{{nexus_home}}/nexus-{{nexus_version}}"
-    - "{{nexus_home}}/sonatype-work"
-
 - name: Copy service template
   template:
     src: nexus.service
@@ -58,7 +47,23 @@
 - name: Reload systemctl daemon
   command: systemctl daemon-reload
 
-- name: Start service
+- name: Stop service
   service:
     name: nexus
-    state: restarted
+    state: stopped
+
+- name: Change install dir owner
+  file:
+    path: "{item}}"
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+    state: directory
+    recurse: yes
+  with_items:
+    - "{{nexus_home}}/nexus-{{nexus_version}}"
+    - "{{nexus_home}}/sonatype-work"
+
+- name: Stop service
+  service:
+    name: nexus
+    state: started
