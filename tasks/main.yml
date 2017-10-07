@@ -63,7 +63,7 @@
     - "{{nexus_home}}/nexus-{{nexus_version}}"
     - "{{nexus_home}}/sonatype-work"
 
-- name: Stop service
+- name: Start service
   service:
     name: nexus
     state: started
