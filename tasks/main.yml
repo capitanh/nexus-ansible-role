@@ -3,6 +3,8 @@
   user:
     name: "{{nexus_user}}"
     createhome: no
+    home: "{{nexus_home}}"
+
 - name: Ensure install dir exists
   file:
     path: "{{nexus_home}}"
@@ -47,11 +49,6 @@
 - name: Reload systemctl daemon
   command: systemctl daemon-reload
 
-- name: Stop service
-  service:
-    name: nexus
-    state: stopped
-
 - name: Change install dir owner
   file:
     path: "{item}}"
@@ -62,8 +59,6 @@
   with_items:
     - "{{nexus_home}}/nexus-{{nexus_version}}"
     - "{{nexus_home}}/sonatype-work"
+  notify: restart nexus
 
-- name: Start service
-  service:
-    name: nexus
-    state: started
+

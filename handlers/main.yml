@@ -1,2 +1,15 @@
 ---
-# handlers file for nexus
+- name: stop nexus
+  service:
+    name: nexus
+    state: stopped
+
+- name: start nexus
+  service:
+    name: nexus
+    state: started
+
+- name: restart nexus
+  service:
+    name: nexus
+    state: restarted
