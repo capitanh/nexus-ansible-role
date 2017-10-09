@@ -38,6 +38,14 @@
     mode: 0755
     state: link
 
+- name: Overwrite rc config
+  template:
+    src: nexus.src
+    dest: "{{nexus_home}}/nexus-{{nexus_version}}/bin"
+    mode: 0644
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+
 - name: Overwrite start script
   template:
     src: nexus
