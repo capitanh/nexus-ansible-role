@@ -56,7 +56,7 @@
 
 - name: Reload systemctl daemon
   command: systemctl daemon-reload
-  notify: restart nexus
+
 
 - name: Change install dir owner
   file:
@@ -69,3 +69,10 @@
     - "{{nexus_home}}/nexus-{{nexus_version}}"
     - "{{nexus_home}}/sonatype-work"
 
+- name: Create cache dir
+  file:
+    path: "{{nexus_home}}/sonatype-work/nexus3/cache"
+    state: directory
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+  notify: restart nexus
