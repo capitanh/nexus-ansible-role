@@ -48,6 +48,7 @@
 
 - name: Reload systemctl daemon
   command: systemctl daemon-reload
+  notify: restart nexus
 
 - name: Change install dir owner
   file:
@@ -59,6 +60,4 @@
   with_items:
     - "{{nexus_home}}/nexus-{{nexus_version}}"
     - "{{nexus_home}}/sonatype-work"
-  notify: restart nexus
-
 
