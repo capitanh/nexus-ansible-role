@@ -57,17 +57,13 @@
 - name: Reload systemctl daemon
   command: systemctl daemon-reload
 
-
-#- name: Change install dir owner
-#  file:
-#    path: "{item}}"
-#    owner: "{{nexus_user}}"
-#    group: "{{nexus_user}}"
-#    state: directory
-#    recurse: yes
-#  with_items:
-#    - "{{nexus_home}}/nexus-{{nexus_version}}"
-#    - "{{nexus_home}}/sonatype-work"
+- name: Change work dir owner
+  file:
+    path: "{{nexus_home}}/sonatype-work"
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+    state: directory
+    recurse: yes
 
 - name: Create cache dirs
   file:
