@@ -40,7 +40,7 @@
 
 - name: Overwrite rc config
   template:
-    src: nexus.src
+    src: nexus.rc
     dest: "{{nexus_home}}/nexus-{{nexus_version}}/bin"
     mode: 0644
     owner: "{{nexus_user}}"
