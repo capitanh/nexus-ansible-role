@@ -2,7 +2,7 @@
 - name: Create nexus user
   user:
     name: "{{nexus_user}}"
-    #createhome: no
+    createhome: no
     home: "{{nexus_home}}"
 
 - name: Ensure install dir exists
