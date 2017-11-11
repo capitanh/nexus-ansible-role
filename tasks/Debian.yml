@@ -1,0 +1,12 @@
+---
+- name: Add openjdk ppa repo
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+
+- name: Install required packages
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  with_items:
+    - openjdk-8-jre

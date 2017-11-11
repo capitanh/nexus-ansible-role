@@ -1,4 +1,14 @@
 ---
+# OS specific config
+- include_vars: "{{ansible_os_family}}-vars.yml"
+- include_tasks: "{{ansible_os_family}}.yml"
+
+# OpenJDK
+- name: Add openjdk ppa repo
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+
+
 - name: Create nexus user
   user:
     name: "{{nexus_user}}"
@@ -24,14 +34,14 @@
 - name: Copy service template
   template:
     src: nexus.service
-    dest: /usr/lib/systemd/system/systemd-nexus.service
+    dest: "{{systemd_dir}}/systemd-nexus.service"
     owner: root
     group: root
     mode: 0644
 
 - name: Create symlink to service script
   file:
-    src: /usr/lib/systemd/system/systemd-nexus.service
+    src: "{{systemd_dir}}/systemd-nexus.service"
     dest: /etc/systemd/system/multi-user.target.wants/nexus.service
     owner: root
     group: root
@@ -46,13 +56,13 @@
     owner: "{{nexus_user}}"
     group: "{{nexus_user}}"
 
-- name: Overwrite start script
-  template:
-    src: nexus
-    dest: "{{nexus_home}}/nexus-{{nexus_version}}/bin"
-    mode: 0755
-    owner: "{{nexus_user}}"
-    group: "{{nexus_user}}"
+#- name: Overwrite start script
+#  template:
+#    src: nexus
+#    dest: "{{nexus_home}}/nexus-{{nexus_version}}/bin"
+#    mode: 0755
+#    owner: "{{nexus_user}}"
+#    group: "{{nexus_user}}"
 
 - name: Reload systemctl daemon
   command: systemctl daemon-reload
