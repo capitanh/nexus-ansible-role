@@ -5,4 +5,4 @@
     state: present
     update_cache: yes
   with_items:
-    - openjdk-8-jre
+    - java-1.8.0-openjdk
