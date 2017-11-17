@@ -3,12 +3,6 @@
 - include_vars: "{{ansible_os_family}}-vars.yml"
 - include_tasks: "{{ansible_os_family}}.yml"
 
-# OpenJDK
-- name: Add openjdk ppa repo
-  apt_repository:
-    repo: ppa:openjdk-r/ppa
-
-
 - name: Create nexus user
   user:
     name: "{{nexus_user}}"
