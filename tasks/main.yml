@@ -28,7 +28,7 @@
 - name: Copy service template
   template:
     src: nexus.service
-    dest: "{{systemd_dir}}/systemd-nexus.service"
+    dest: "{{systemd_dir}}/nexus.service"
     owner: root
     group: root
     mode: 0644
