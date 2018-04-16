@@ -44,7 +44,7 @@
 
 - name: Enable systemd nexus service
   service:
-    name: nexus
+    name: nexus.service
     enabled: yes
     state: reloaded
 
