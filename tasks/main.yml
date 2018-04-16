@@ -33,15 +33,6 @@
     group: root
     mode: 0644
 
-#- name: Create symlink to service script
-#  file:
-#    src: "{{systemd_dir}}/systemd-nexus.service"
-#    dest: /etc/systemd/system/multi-user.target.wants/nexus.service
-#    owner: root
-#    group: root
-#    mode: 0755
-#    state: link
-
 - name: Enable systemd nexus service
   service:
     name: nexus
@@ -54,17 +45,6 @@
     mode: 0644
     owner: "{{nexus_user}}"
     group: "{{nexus_user}}"
-
-#- name: Overwrite start script
-#  template:
-#    src: nexus
-#    dest: "{{nexus_home}}/nexus-{{nexus_version}}/bin"
-#    mode: 0755
-#    owner: "{{nexus_user}}"
-#    group: "{{nexus_user}}"
-
-#- name: Reload systemctl daemon
-#  command: systemctl daemon-reload
 
 - name: Change work dir owner
   file:
