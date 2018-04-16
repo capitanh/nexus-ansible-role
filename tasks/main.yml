@@ -44,9 +44,8 @@
 
 - name: Enable systemd nexus service
   service:
-    name: nexus.service
+    name: nexus
     enabled: yes
-    state: reloaded
 
 - name: Overwrite rc config
   template:
