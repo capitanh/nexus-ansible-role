@@ -33,14 +33,19 @@
     group: root
     mode: 0644
 
-- name: Create symlink to service script
-  file:
-    src: "{{systemd_dir}}/systemd-nexus.service"
-    dest: /etc/systemd/system/multi-user.target.wants/nexus.service
-    owner: root
-    group: root
-    mode: 0755
-    state: link
+#- name: Create symlink to service script
+#  file:
+#    src: "{{systemd_dir}}/systemd-nexus.service"
+#    dest: /etc/systemd/system/multi-user.target.wants/nexus.service
+#    owner: root
+#    group: root
+#    mode: 0755
+#    state: link
+
+- name: Enable systemd nexus service
+  service:
+    name: nexus
+    state: enabled
 
 - name: Overwrite rc config
   template:
@@ -58,8 +63,8 @@
 #    owner: "{{nexus_user}}"
 #    group: "{{nexus_user}}"
 
-- name: Reload systemctl daemon
-  command: systemctl daemon-reload
+#- name: Reload systemctl daemon
+#  command: systemctl daemon-reload
 
 - name: Change work dir owner
   file:
