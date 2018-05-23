@@ -7,6 +7,7 @@
   user:
     name: "{{nexus_user}}"
     createhome: no
+    system: yes
     home: "{{nexus_home}}"
 
 - name: Ensure install dir exists
