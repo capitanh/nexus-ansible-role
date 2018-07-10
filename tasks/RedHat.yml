@@ -4,5 +4,6 @@
     name: "{{item}}"
     state: present
     update_cache: yes
+    disable_gpg_check: yes
   with_items:
     - java-1.8.0-openjdk
