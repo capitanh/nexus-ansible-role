@@ -19,7 +19,7 @@
 
 - name: Download and extract archive
   unarchive:
-    src: "http://download.sonatype.com/nexus/3/nexus-{{nexus_version}}-unix.tar.gz"
+    src: "https://download.sonatype.com/nexus/3/latest-unix.tar.gz"
     dest: "{{nexus_home}}"
     remote_src: yes
     creates: "{{nexus_home}}/nexus-{{nexus_version}}"
