@@ -57,11 +57,14 @@
 
 - name: Copy java keystore file
   copy:
-    src: keystore.jks
+    src: "{{item}}"
     dest: "{{nexus_home}}/nexus-{{nexus_version}}/etc/ssl"
     owner: "{{nexus_user}}"
     group: "{{nexus_user}}"
     mode: 0644
+  with_items:
+    - keystore.jks
+    - private.key
 
 - name: Enable ssl connection
   template:
