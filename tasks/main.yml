@@ -66,6 +66,14 @@
     - keystore.jks
     - private.key
 
+- name: Make sure etc nexus dir exists
+  file:
+    path: "{{nexus_home}}/sonatype-work/nexus3/etc"
+    state: directory
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+    mode: 0755    
+
 - name: Enable ssl connection
   template:
     src: nexus.properties
