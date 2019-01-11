@@ -69,7 +69,7 @@
 - name: Enable ssl connection
   template:
     src: nexus.properties
-    dest: "{{nexus_home}}/sonatype-work/nexus3/etc"
+    dest: "{{nexus_home}}/sonatype-work/nexus3/etc/nexus.properties"
     owner: "{{nexus_user}}"
     group: "{{nexus_user}}"
     mode: 0644        
