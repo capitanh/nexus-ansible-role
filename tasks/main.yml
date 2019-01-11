@@ -55,6 +55,22 @@
     state: directory
     recurse: yes
 
+- name: Copy java keystore file
+  copy:
+    src: keystore.jks
+    dest: "{{nexus_home}}/nexus-{{nexus_version}}/etc/ssl"
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+    mode: 0644
+
+- name: Enable ssl connection
+  template:
+    src: nexus.properties
+    dest: "{{nexus_home}}/sonatype-work/nexus3/etc"
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+    mode: 0644        
+
 - name: Create cache dirs
   file:
     path: "{{nexus_home}}/sonatype-work/nexus3/{{item}}"
