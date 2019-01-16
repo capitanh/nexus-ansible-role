@@ -4,20 +4,20 @@ import org.sonatype.nexus.repository.config.Configuration
 parsed_args = new JsonSlurper().parseText(args)
 
 configuration = new Configuration(
-        repositoryName: parsed_args.name,
-        recipeName: 'docker-hosted',
-        online: true,
-        attributes: [
-                docker: [
-                        httpPort: parsed_args.http_port,
-                        v1Enabled : parsed_args.v1_enabled
-                ],
-                storage: [
-                        writePolicy: parsed_args.write_policy.toUpperCase(),
-                        blobStoreName: parsed_args.blob_store,
-                        strictContentTypeValidation: Boolean.valueOf(parsed_args.strict_content_validation)
-                ]
-        ]
+repositoryName: parsed_args.name,
+recipeName: 'docker-hosted',
+online: true,
+attributes: [
+  docker: [
+    httpPort: 8081,
+    v1Enabled : true
+  ],
+  storage: [
+    //writePolicy: parsed_args.write_policy.toUpperCase(),
+    blobStoreName: 'default',
+    strictContentTypeValidation: true
+  ]
+]
 )
 
 def existingRepository = repository.getRepositoryManager().get(parsed_args.name)
