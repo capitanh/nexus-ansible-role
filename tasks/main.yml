@@ -115,3 +115,15 @@
       name: gdr
       type: 'groovy'
       content: "{{ lookup('file', 'create_repo_docker_hosted.groovy') }}"
+
+- name: Calling Groovy script
+  uri:
+    url: "http://localhost:{{nexus_port}}/service/rest/v1/script/create_repo_docker_hosted/run"
+    user: "{{nexus_repo_user}}"
+    password: "{{nexus_repo_password}}"
+    headers:
+      Content-Type: "text/plain"
+    method: POST
+    status_code: 200,204
+    force_basic_auth: yes
+    body: ""      
