@@ -104,7 +104,7 @@
 
 - name: Declaring Groovy script
   uri:
-    url: "http://localhost:{{nexus_port}}/service/rest/v1/script"
+    url: "http://localhost:{{nexus_port}}/service/rest/v1/script/create_repo_docker_hosted"
     user: "{{nexus_repo_user}}"
     password: "{{nexus_repo_password}}"
     body_format: json
