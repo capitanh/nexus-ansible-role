@@ -95,7 +95,7 @@
 
 - name: Removing (potential) previously declared Groovy script
   uri:
-    url: "http://localhost:8081/service/siesta/rest/v1/script/create_repo_docker_hosted"
+    url: "http://localhost:8081/service/rest/v1/script/create_repo_docker_hosted"
     user: "{{nexus_repo_user}}"
     password: "{{nexus_repo_password}}"
     method: DELETE
