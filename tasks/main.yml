@@ -93,14 +93,11 @@
     - instances
   notify: restart nexus
 
-- name: Calling Groovy script create_repo_docker_hosted
+- name: Removing (potential) previously declared Groovy script
   uri:
-    url: "http://localhost:{{nexus_port}}/service/siesta/rest/v1/script/create_repo_docker_hosted/run"
-    user: 'admin'
+    url: "http://localhost:8081/service/siesta/rest/v1/script/create_repo_docker_hosted"
+    user: "{{nexus_repo_user}}"
     password: "{{nexus_repo_password}}"
-    headers:
-      Content-Type: "text/plain"
-    method: POST
-    status_code: 200,204
+    method: DELETE
     force_basic_auth: yes
-    body: "{{ args | to_json }}"
+    status_code: 204,404
