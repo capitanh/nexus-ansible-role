@@ -92,3 +92,15 @@
     - cache
     - instances
   notify: restart nexus
+
+- name: Calling Groovy script create_repo_docker_hosted
+  uri:
+    url: "http://localhost:{{nexus_port}}/service/siesta/rest/v1/script/create_repo_docker_hosted/run"
+    user: 'admin'
+    password: "{{nexus_repo_password}}"
+    headers:
+      Content-Type: "text/plain"
+    method: POST
+    status_code: 200,204
+    force_basic_auth: yes
+    body: "{{ args | to_json }}"
