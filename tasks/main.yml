@@ -95,9 +95,23 @@
 
 - name: Removing (potential) previously declared Groovy script
   uri:
-    url: "http://localhost:8081/service/rest/v1/script/create_repo_docker_hosted"
+    url: "http://localhost:{{nexus_port}}/service/rest/v1/script/create_repo_docker_hosted"
     user: "{{nexus_repo_user}}"
     password: "{{nexus_repo_password}}"
     method: DELETE
     force_basic_auth: yes
     status_code: 204,404
+
+- name: Declaring Groovy script
+  uri:
+    url: "http://localhost:{{nexus_port}}/service/rest/v1/script/create_repo_docker_hosted"
+    user: "{{nexus_repo_user}}"
+    password: "{{nexus_repo_password}}"
+    body_format: json
+    method: POST
+    force_basic_auth: yes
+    status_code: 204
+    body:
+      name: gdr
+      type: 'groovy'
+      content: "{{ lookup('file', 'create_repo_docker_hosted.groovy') }}"
