@@ -8,5 +8,6 @@
     name: "{{item}}"
     state: present
     update_cache: yes
-  with_items:
-    - openjdk-8-jre
+  vars:
+    packages:
+      - openjdk-8-jre
